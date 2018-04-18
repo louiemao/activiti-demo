@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="test" name="test" isExecutable="true">
+    <documentation>测试</documentation>
+    <startEvent id="theStart"></startEvent>
+    <userTask id="task1" name="起草人申请" activiti:assignee="${apply}" activiti:formKey="http://localhost:8080/bpm/apply_form.html">
+      <extensionElements>
+        <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
+      </extensionElements>
+    </userTask>
+    <userTask id="task2" name="科室主任审批" default="flow3" activiti:assignee="${kszr}" activiti:formKey="http://localhost:8080/bpm/apply_form2.html">
+      <extensionElements>
+        <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
+      </extensionElements>
+    </userTask>
+    <endEvent id="theEnd"></endEvent>
+    <userTask id="task3" name="部门长审批" default="flow5" activiti:assignee="${bmz}" activiti:formKey="http://localhost:8080/bpm/apply_form2.html">
+      <extensionElements>
+        <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow1" sourceRef="theStart" targetRef="task1"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="task1" targetRef="task2"></sequenceFlow>
+    <sequenceFlow id="flow4" name="不同意" sourceRef="task2" targetRef="task1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${result=='不同意'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow3" name="同意" sourceRef="task2" targetRef="task3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${result=='同意'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow5" name="同意" sourceRef="task3" targetRef="theEnd">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${result=='同意'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow6" name="不同意" sourceRef="task3" targetRef="task1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${result=='不同意'}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_test">
+    <bpmndi:BPMNPlane bpmnElement="test" id="BPMNPlane_test">
+      <bpmndi:BPMNShape bpmnElement="theStart" id="BPMNShape_theStart">
+        <omgdc:Bounds height="30.0" width="30.0" x="45.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="task1" id="BPMNShape_task1">
+        <omgdc:Bounds height="80.0" width="100.0" x="105.0" y="135.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="task2" id="BPMNShape_task2">
+        <omgdc:Bounds height="80.0" width="100.0" x="255.0" y="135.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="theEnd" id="BPMNShape_theEnd">
+        <omgdc:Bounds height="28.0" width="28.0" x="585.0" y="161.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="task3" id="BPMNShape_task3">
+        <omgdc:Bounds height="80.0" width="100.0" x="420.0" y="135.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="75.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="105.0" y="175.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="205.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="255.0" y="175.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="355.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="175.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="305.0" y="135.0"></omgdi:waypoint>
+        <omgdi:waypoint x="305.0" y="74.0"></omgdi:waypoint>
+        <omgdi:waypoint x="155.0" y="74.0"></omgdi:waypoint>
+        <omgdi:waypoint x="155.0" y="135.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="520.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="585.0" y="175.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="470.0" y="215.0"></omgdi:waypoint>
+        <omgdi:waypoint x="470.0" y="313.0"></omgdi:waypoint>
+        <omgdi:waypoint x="155.0" y="313.0"></omgdi:waypoint>
+        <omgdi:waypoint x="155.0" y="215.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

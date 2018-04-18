@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinasws.web.dao.ApplicationDao">
+  <resultMap id="BaseResultMap" type="com.chinasws.web.entity.Application">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="form_id" jdbcType="VARCHAR" property="formId" />
+    <result column="project_cd" jdbcType="VARCHAR" property="projectCd" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="requirement" jdbcType="VARCHAR" property="requirement" />
+    <result column="pid" jdbcType="VARCHAR" property="pid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, form_id, project_cd, project_name, requirement, pid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_application
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_application
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.chinasws.web.entity.Application">
+    insert into t_application (id, form_id, project_cd, 
+      project_name, requirement, pid
+      )
+    values (#{id,jdbcType=VARCHAR}, #{formId,jdbcType=VARCHAR}, #{projectCd,jdbcType=VARCHAR}, 
+      #{projectName,jdbcType=VARCHAR}, #{requirement,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.chinasws.web.entity.Application">
+    insert into t_application
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="formId != null">
+        form_id,
+      </if>
+      <if test="projectCd != null">
+        project_cd,
+      </if>
+      <if test="projectName != null">
+        project_name,
+      </if>
+      <if test="requirement != null">
+        requirement,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="formId != null">
+        #{formId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectCd != null">
+        #{projectCd,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null">
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="requirement != null">
+        #{requirement,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chinasws.web.entity.Application">
+    update t_application
+    <set>
+      <if test="formId != null">
+        form_id = #{formId,jdbcType=VARCHAR},
+      </if>
+      <if test="projectCd != null">
+        project_cd = #{projectCd,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null">
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="requirement != null">
+        requirement = #{requirement,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chinasws.web.entity.Application">
+    update t_application
+    set form_id = #{formId,jdbcType=VARCHAR},
+      project_cd = #{projectCd,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      requirement = #{requirement,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_application
+    where pid = #{pid,jdbcType=VARCHAR}
+  </select>
+</mapper>
