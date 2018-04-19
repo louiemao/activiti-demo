@@ -3,10 +3,12 @@ package com.chinasws.web.config;
 import com.alibaba.fastjson.parser.Feature;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
-import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.alibaba.fastjson.support.springfox.SwaggerJsonSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import springfox.documentation.spring.web.json.Json;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +19,8 @@ import java.util.List;
 @Configuration
 public class FastJsonConfiguration {
     @Bean
-    public FastJsonHttpMessageConverter4 fastjsonConverter() {
-        FastJsonHttpMessageConverter4 fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter4();
+    public FastJsonHttpMessageConverter fastJsonHttpMessageConverter() {
+        FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
         List<MediaType> fastMedisTypes = new ArrayList<>();
         fastMedisTypes.add(MediaType.APPLICATION_JSON_UTF8);
         fastMedisTypes.add(MediaType.TEXT_PLAIN);
@@ -37,7 +39,7 @@ public class FastJsonConfiguration {
                 Feature.DisableCircularReferenceDetect
         );
         //增加对swagger的支持
-//        fastJsonConfig.getSerializeConfig().put(Json.class, SwaggerJsonSerializer.instance);
+        fastJsonConfig.getSerializeConfig().put(Json.class, SwaggerJsonSerializer.instance);
         fastJsonHttpMessageConverter.setFastJsonConfig(fastJsonConfig);
         return fastJsonHttpMessageConverter;
     }
