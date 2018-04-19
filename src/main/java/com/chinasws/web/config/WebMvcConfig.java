@@ -1,5 +1,6 @@
 package com.chinasws.web.config;
 
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +14,7 @@ import java.util.List;
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Autowired
-    private FastJsonHttpMessageConverter4 fastJsonHttpMessageConverter4;
+    private FastJsonHttpMessageConverter fastJsonHttpMessageConverter;
 
 
     @Override
@@ -21,7 +22,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         StringHttpMessageConverter stringHttpMessageConverter = new StringHttpMessageConverter(Charset.forName("UTF-8"));
         converters.add(stringHttpMessageConverter);
 
-        converters.add(fastJsonHttpMessageConverter4);
+        converters.add(fastJsonHttpMessageConverter);
     }
 
 }

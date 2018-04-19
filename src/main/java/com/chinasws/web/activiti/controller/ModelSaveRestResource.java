@@ -27,7 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -50,11 +49,9 @@ public class ModelSaveRestResource implements ModelDataJsonConstants {
 
     @RequestMapping(value = "/model/{modelId}/save", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
-    public void saveModel(@PathVariable String modelId,
-                          @RequestParam("name") String name,
-                          @RequestParam("json_xml") String json_xml,
-                          @RequestParam("svg_xml") String svg_xml,
-                          @RequestParam("description") String description) {
+    public void saveModel(@PathVariable String modelId, @RequestParam("name") String name,
+                          @RequestParam("json_xml") String json_xml, @RequestParam("svg_xml") String svg_xml,
+                          @RequestParam("description") String description) {//对接收参数进行了修改
         try {
 
             Model model = repositoryService.getModel(modelId);

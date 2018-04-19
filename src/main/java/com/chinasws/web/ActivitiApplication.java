@@ -6,14 +6,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@ComponentScan({"org.activiti.rest.diagram","com.chinasws.web"})
 @MapperScan("com.chinasws.web.dao")
 // 关闭security功能。
 // 主要是因为activiti的依赖中含有spring security的jar包，所以springboot会自动配置安全功能，访问时就需要输入密码。
 @EnableAutoConfiguration(exclude = {
         org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration.class,
         org.activiti.spring.boot.SecurityAutoConfiguration.class,
+        org.springframework.boot.actuate.autoconfigure.ManagementWebSecurityAutoConfiguration.class
 })
 public class ActivitiApplication {
 
