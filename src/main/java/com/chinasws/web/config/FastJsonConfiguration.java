@@ -38,8 +38,8 @@ public class FastJsonConfiguration {
                 Feature.AllowUnQuotedFieldNames,
                 Feature.DisableCircularReferenceDetect
         );
-        //增加对swagger的支持
-        fastJsonConfig.getSerializeConfig().put(Json.class, SwaggerJsonSerializer.instance);
+        //增加对swagger的支持,高版本的fastjson不再需要进行这个配置
+//        fastJsonConfig.getSerializeConfig().put(Json.class, SwaggerJsonSerializer.instance);
         fastJsonHttpMessageConverter.setFastJsonConfig(fastJsonConfig);
         return fastJsonHttpMessageConverter;
     }
